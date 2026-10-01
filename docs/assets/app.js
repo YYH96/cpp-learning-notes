@@ -18,6 +18,15 @@ search.addEventListener('input', () => {
   });
   document.querySelectorAll('.chapter-card').forEach(card => { card.hidden = !card.dataset.search.toLowerCase().includes(query); });
   document.querySelector('.no-results').hidden = matches > 0;
+  document.querySelectorAll('.nav-group').forEach(group => {
+    group.hidden = !group.querySelector('.chapter-link:not([hidden])');
+  });
+  document.querySelectorAll('.topic-group').forEach(group => {
+    group.hidden = !group.querySelector('.chapter-card:not([hidden])');
+  });
+});
+document.querySelectorAll('a[href="#lesson-details"]').forEach(link => {
+  link.addEventListener('click', () => { document.querySelector('#lesson-details').open = true; });
 });
 const toast = document.querySelector('.toast');
 let toastTimer;

@@ -120,6 +120,12 @@ for i,c in enumerate(meta):
     table_header = ''.join(f'<th scope="col">{esc(col)}</th>' for col in theory['columns'])
     table_rows = ''.join('<tr>'+''.join((f'<th scope="row">{esc(cell)}</th>' if j == 0 else f'<td>{esc(cell)}</td>') for j,cell in enumerate(row))+'</tr>' for row in theory['rows'])
     theory_content = f'<section class="theory-overview" id="theory-summary"><div class="eyebrow">한눈에 보는 핵심</div><p class="concept-definition">{esc(theory["definition"])}</p><div class="concept-grid">{theory_cards}</div></section><section id="concept-comparison"><h2>개념 비교</h2><div class="table-scroll"><table class="concept-table"><thead><tr>{table_header}</tr></thead><tbody>{table_rows}</tbody></table></div></section><section class="pitfall" id="common-pitfall"><strong>자주 헷갈리는 점</strong><p>{esc(theory["warning"])}</p></section>'
+    extra_path = ROOT / 'theory' / f'{c["name"]}.md'
+    extra_headings = []
+    if extra_path.exists():
+        extra_text = extra_path.read_text(encoding='utf-8')
+        extra_headings = re.findall(r'^## (.+)', extra_text, re.M)
+        theory_content += '<section class="extra-theory">'+markdown(extra_text)+'</section>'
     # Concise theory stays visible. Longer classroom notes and complete examples open on demand.
     body = re.sub(r'^# .+\n', '', body, count=1)
     body = re.sub(r'^\s*> \*\*학습 목표\*\* · .+\n', '', body, count=1)
@@ -127,6 +133,7 @@ for i,c in enumerate(meta):
     details_label = '복습 체크리스트 펼치기' if i == 14 else '상세 설명과 예제 펼치기'
     details = f'<details class="lesson-details" id="lesson-details"><summary><span>{details_label}</span><small>필요한 내용만 골라 읽기</small><b>+</b></summary><div class="lesson-detail-content">{markdown(body)}</div></details>'
     toc = '<aside class="page-toc"><span>이 페이지에서</span><a href="#theory-summary">핵심 요약</a><a href="#concept-comparison">개념 비교</a><a href="#common-pitfall">주의할 점</a><a href="#lesson-details">설명과 예제</a></aside>'
+    toc = toc.replace('<a href="#lesson-details">', ''.join(f'<a href="#{slug(h)}">{esc(h)}</a>' for h in extra_headings)+'<a href="#lesson-details">')
     prev = f'<a href="{meta[i-1]["name"]}.html"><small>← 이전 챕터</small>{esc(meta[i-1]["title"])}</a>' if i else '<a href="../index.html"><small>← 전체 목차</small>학습 노트 홈</a>'
     nxt = f'<a href="{meta[i+1]["name"]}.html"><small>다음 챕터 →</small>{esc(meta[i+1]["title"])}</a>' if i<14 else '<a href="../examples.html"><small>다음 단계 →</small>예제 직접 실행하기</a>'
     article = f'<div class="reading"><div class="reading-eyebrow">{esc(theory["group"])} <span>THEORY {i+1:02} / 15</span></div><article><h1>{esc(c["title"])}</h1>{theory_content}{details}</article><nav class="page-navigation" aria-label="이전 다음 챕터">{prev}{nxt}</nav></div>'

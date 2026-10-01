@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="C++ 수업을 정리한 15개 챕터와 실행 예제 29개. 기초 문법부터 클래스, 자료구조, 게임 설계까지."><title>실행 예제 · C++ Learning Notes</title><link rel="stylesheet" href="assets/style.css"><script defer src="assets/app.js"></script></head>
+<body><a class="skip" href="#main">본문으로 이동</a><aside class="sidebar" id="sidebar"><a class="brand" href="index.html"><span class="brand-icon">C<span>++</span></span><span>Learning Notes<small>배운 것을, 내 것으로.</small></span></a><div class="search"><span aria-hidden="true">⌕</span><input id="chapter-search" type="search" placeholder="챕터 찾아보기" aria-label="챕터 검색"></div><nav aria-label="학습 목차"><a class="overview" href="index.html">↗ 학습 노트 홈</a><p class="nav-label">THE CHAPTERS <span>15</span></p><div class="chapter-list"><a class="chapter-link " href="chapters/01-program-basics.html" data-search="프로그램의 구조와 개발 도구 소스가 실행 파일이 되는 과정을 이해하고 디버깅 도구를 사용한다."><span>01</span>프로그램의 구조와 개발 도구</a><a class="chapter-link " href="chapters/02-io-types.html" data-search="입출력, 자료형, 변수와 상수 입력·출력과 자료형을 선택하고 초기화·형변환을 적용한다."><span>02</span>입출력, 자료형, 변수와 상수</a><a class="chapter-link " href="chapters/03-operators-conditions.html" data-search="연산자와 조건문 연산 결과와 조건 분기를 이해하고 비트 플래그를 구성한다."><span>03</span>연산자와 조건문</a><a class="chapter-link " href="chapters/04-loops.html" data-search="반복문과 반복 제어 반복 횟수·종료 조건을 설계하고 break·continue를 사용한다."><span>04</span>반복문과 반복 제어</a><a class="chapter-link " href="chapters/05-functions-scope.html" data-search="함수, 오버로딩, 재귀와 범위 기능을 함수로 분리하고 재귀·오버로딩·이름 범위를 설명한다."><span>05</span>함수, 오버로딩, 재귀와 범위</a><a class="chapter-link " href="chapters/06-arrays-pointers-references.html" data-search="배열, 포인터, 참조와 2차원 데이터 값·주소·참조의 차이를 이해하고 배열 인덱스를 안전하게 다룬다."><span>06</span>배열, 포인터, 참조와 2차원 데이터</a><a class="chapter-link " href="chapters/07-strings-search.html" data-search="문자열과 문자열 검색 C 문자열과 string의 차이를 설명하고 문자열 검색을 구현한다."><span>07</span>문자열과 문자열 검색</a><a class="chapter-link " href="chapters/08-structs-classes.html" data-search="구조체, 열거형과 클래스 구조체와 클래스로 데이터를 묶고 접근 권한을 설계한다."><span>08</span>구조체, 열거형과 클래스</a><a class="chapter-link " href="chapters/09-lifetime-memory.html" data-search="생성자, 소멸자와 동적 할당 객체 수명과 동적 메모리의 생성·해제 책임을 이해한다."><span>09</span>생성자, 소멸자와 동적 할당</a><a class="chapter-link " href="chapters/10-inheritance-polymorphism.html" data-search="상속, 가상 함수, 추상 클래스와 캐스팅 가상 함수와 추상 클래스로 공통 인터페이스를 설계한다."><span>10</span>상속, 가상 함수, 추상 클래스와 캐스팅</a><a class="chapter-link " href="chapters/11-containers-iterators.html" data-search="vector, list, 반복자와 직접 만든 자료구조 컨테이너와 반복자의 동작을 이해하고 직접 구현한 자료구조를 읽는다."><span>11</span>vector, list, 반복자와 직접 만든 자료구조</a><a class="chapter-link " href="chapters/12-templates-operators.html" data-search="템플릿, auto와 연산자 오버로딩 자료형에 독립적인 함수와 사용자 정의 연산을 작성한다."><span>12</span>템플릿, auto와 연산자 오버로딩</a><a class="chapter-link " href="chapters/13-game-design.html" data-search="게임을 만들며 연결한 개념 게임 루프·좌표·씬 전환에 개별 개념을 연결한다."><span>13</span>게임을 만들며 연결한 개념</a><a class="chapter-link " href="chapters/14-review-corrections.html" data-search="복습할 때 바로잡아야 할 부분 수업 원문의 미완성 부분과 복습 시 주의할 규칙을 구분한다."><span>14</span>복습할 때 바로잡아야 할 부분</a><a class="chapter-link " href="chapters/15-learning-checklist.html" data-search="내가 설명하고 구현할 수 있어야 하는 것 학습 내용을 자신의 말로 설명하고 직접 구현할 수 있는지 확인한다."><span>15</span>내가 설명하고 구현할 수 있어야 하는 것</a></div><p class="no-results" hidden>검색 결과가 없습니다.</p><a class="examples-link" href="examples.html">&lt;/&gt; 실행 예제 모아보기 <span>29</span></a></nav><div class="sidebar-bottom"><span class="status-dot"></span> MSVC C++17 검증 완료<a href="https://github.com/YYH96/cpp-learning-notes" target="_blank" rel="noopener">GitHub ↗</a></div></aside><div class="page-shell"><header class="topbar"><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="학습 목차 열기">☰</button><span>C++ / <strong>실행 예제</strong></span><button id="theme-toggle" type="button" aria-label="화면 테마 변경">◐ <span>테마</span></button></header><main id="main"><div class="examples-page"><div class="eyebrow">LEARN BY DOING</div><h1>직접 실행하는<br><em>29개의 예제.</em></h1><p class="hero-description">각 예제는 하나의 main 함수로 독립 실행됩니다.<br>MSVC C++17로 컴파일·실행하고 결과를 확인한 복습 코드입니다.</p><blockquote>Visual Studio의 x64 Native Tools Command Prompt에서 실행하세요.</blockquote><div class="code-block"><div class="code-toolbar"><span>명령 프롬프트</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>cl /nologo /std:c++17 /EHsc /utf-8 01_hello.cpp /Fe:hello.exe
+hello.exe</code></pre></div><details class="example-card"><summary><span>01</span><strong>01_hello.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/01-program-basics.html">프로그램의 구조와 개발 도구</a> · <a href="examples/01_hello.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+int main() {
+    // 한 줄 주석
+    std::cout &lt;&lt; &quot;Hello World!\n&quot;;
+    return 0;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>02</span><strong>02_scores.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/02-io-types.html">입출력, 자료형, 변수와 상수</a> · <a href="examples/02_scores.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+int main() {
+    int kor = 80, eng = 90, math = 85;
+    int sum = kor + eng + math;
+    double average = static_cast&lt;double&gt;(sum) / 3;
+    char grade = &#x27;A&#x27;;
+    bool passed = average &gt;= 60;
+    std::cout &lt;&lt; sum &lt;&lt; &#x27; &#x27; &lt;&lt; average &lt;&lt; &#x27; &#x27; &lt;&lt; grade &lt;&lt; &#x27; &#x27; &lt;&lt; passed &lt;&lt; &#x27;\n&#x27;;
+    std::cout &lt;&lt; &quot;int bytes: &quot; &lt;&lt; sizeof(int) &lt;&lt; &#x27;\n&#x27;;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>03</span><strong>03_constants.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/02-io-types.html">입출력, 자료형, 변수와 상수</a> · <a href="examples/03_constants.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+int main() {
+    const int maxHP = 100;
+    constexpr int boardWidth = 5;
+    int hp = maxHP;
+    hp -= 20;
+    std::cout &lt;&lt; hp &lt;&lt; &#x27; &#x27; &lt;&lt; boardWidth &lt;&lt; &#x27;\n&#x27;;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>04</span><strong>04_conditions.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/03-operators-conditions.html">연산자와 조건문</a> · <a href="examples/04_conditions.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+int main() {
+    int hp = 100;
+    hp -= 30;
+    bool isHero = true;
+    if (isHero &amp;&amp; hp &gt; 0) {
+        std::cout &lt;&lt; &quot;Hero alive\n&quot;;
+    }
+    int score = 88;
+    if (score &gt;= 90) std::cout &lt;&lt; &quot;A\n&quot;;
+    else if (score &gt;= 80) std::cout &lt;&lt; &quot;B\n&quot;;
+    else std::cout &lt;&lt; &quot;C\n&quot;;
+    char turn = &#x27;X&#x27;;
+    turn = turn == &#x27;X&#x27; ? &#x27;O&#x27; : &#x27;X&#x27;;
+    int n = 5;
+    int before = n++;  // before=5, n=6
+    int after = ++n;   // after=7, n=7
+    std::cout &lt;&lt; turn &lt;&lt; &#x27; &#x27; &lt;&lt; before &lt;&lt; &#x27; &#x27; &lt;&lt; after &lt;&lt; &#x27;\n&#x27;;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>05</span><strong>05_switch.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/03-operators-conditions.html">연산자와 조건문</a> · <a href="examples/05_switch.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+int main() {
+    int menu = 2;
+    switch (menu) {
+    case 0: std::cout &lt;&lt; &quot;Exit\n&quot;; break;
+    case 1: std::cout &lt;&lt; &quot;Americano\n&quot;; break;
+    case 2: std::cout &lt;&lt; &quot;Latte\n&quot;; break;
+    default: std::cout &lt;&lt; &quot;Invalid menu\n&quot;; break;
+    }
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>06</span><strong>06_flags.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/03-operators-conditions.html">연산자와 조건문</a> · <a href="examples/06_flags.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+int main() {
+    constexpr unsigned fury = 1u &lt;&lt; 0;
+    constexpr unsigned shield = 1u &lt;&lt; 1;
+    unsigned buffs = 0;
+    buffs |= fury;                    // 켜기
+    buffs |= shield;
+    std::cout &lt;&lt; ((buffs &amp; fury) != 0) &lt;&lt; &#x27;\n&#x27;;
+    buffs &amp;= ~fury;                    // 끄기
+    buffs ^= shield;                   // 토글
+    std::cout &lt;&lt; buffs &lt;&lt; &#x27;\n&#x27;;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>07</span><strong>07_loops.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/04-loops.html">반복문과 반복 제어</a> · <a href="examples/07_loops.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+int main() {
+    for (int i = 1; i &lt;= 7; ++i) {
+        if (i % 2 == 0) continue;
+        std::cout &lt;&lt; i &lt;&lt; &#x27; &#x27;;
+    }
+    std::cout &lt;&lt; &#x27;\n&#x27;;
+    constexpr int height = 3;
+    for (int row = 0; row &lt; height; ++row) {
+        for (int space = 0; space &lt; height - row - 1; ++space)
+            std::cout &lt;&lt; &#x27; &#x27;;
+        for (int star = 0; star &lt; 2 * row + 1; ++star)
+            std::cout &lt;&lt; &#x27;*&#x27;;
+        std::cout &lt;&lt; &#x27;\n&#x27;;
+    }
+    int count = 0;
+    while (count &lt; 3) { std::cout &lt;&lt; count++ &lt;&lt; &#x27; &#x27;; }
+    std::cout &lt;&lt; &#x27;\n&#x27;;
+    int menu = 0;
+    do { std::cout &lt;&lt; &quot;Menu shown once\n&quot;; } while (menu != 0);
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>08</span><strong>08_functions.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/05-functions-scope.html">함수, 오버로딩, 재귀와 범위</a> · <a href="examples/08_functions.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+int Add(int a, int b = 10);
+double Add(double a, double b);
+int main() {
+    std::cout &lt;&lt; Add(5) &lt;&lt; &#x27;\n&#x27;;        // 15
+    std::cout &lt;&lt; Add(2, 3) &lt;&lt; &#x27;\n&#x27;;     // 5
+    std::cout &lt;&lt; Add(1.5, 2.5) &lt;&lt; &#x27;\n&#x27;; // 4
+}
+int Add(int a, int b) { return a + b; }
+double Add(double a, double b) { return a + b; }
+</code></pre></div></div></details><details class="example-card"><summary><span>09</span><strong>09_recursion.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/05-functions-scope.html">함수, 오버로딩, 재귀와 범위</a> · <a href="examples/09_recursion.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+// 전제: 0 &lt;= n &lt;= 12 (이 예제는 int 범위를 고려)
+int Factorial(int n) {
+    if (n &lt;= 1) return 1;
+    return n * Factorial(n - 1);
+}
+int SumTail(int n, int acc = 0) {
+    if (n &lt;= 0) return acc;
+    return SumTail(n - 1, acc + n);
+}
+// 수업의 1, 1, 2, 3, ... 규칙, 전제: 1 &lt;= n &lt;= 46
+int Fibonacci(int n) {
+    if (n &lt;= 2) return 1;
+    int a = 1, b = 1;
+    for (int i = 3; i &lt;= n; ++i) {
+        int next = a + b;
+        a = b;
+        b = next;
+    }
+    return b;
+}
+int main() {
+    std::cout &lt;&lt; Factorial(5) &lt;&lt; &#x27; &#x27; &lt;&lt; SumTail(10) &lt;&lt; &#x27; &#x27; &lt;&lt; Fibonacci(10) &lt;&lt; &#x27;\n&#x27;;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>10</span><strong>10_scope.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/05-functions-scope.html">함수, 오버로딩, 재귀와 범위</a> · <a href="examples/10_scope.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+namespace Game {
+    int NextID() {
+        static int count = 0;
+        return ++count;
+    }
+}
+int main() {
+    int count = 100;
+    std::cout &lt;&lt; Game::NextID() &lt;&lt; &#x27; &#x27; &lt;&lt; Game::NextID() &lt;&lt; &#x27; &#x27; &lt;&lt; count &lt;&lt; &#x27;\n&#x27;;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>11</span><strong>11_array_pointer.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/06-arrays-pointers-references.html">배열, 포인터, 참조와 2차원 데이터</a> · <a href="examples/11_array_pointer.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+void PrintArray(const int* arr, int count) {
+    for (int i = 0; i &lt; count; ++i) std::cout &lt;&lt; arr[i] &lt;&lt; &#x27; &#x27;;
+    std::cout &lt;&lt; &#x27;\n&#x27;;
+}
+void AddOne(int* value) {
+    if (value != nullptr) ++(*value);
+}
+int main() {
+    int numbers[3] = {10, 20, 30};
+    int count = static_cast&lt;int&gt;(sizeof(numbers) / sizeof(numbers[0]));
+    PrintArray(numbers, count);
+    int* p = numbers;
+    std::cout &lt;&lt; *(p + 2) &lt;&lt; &#x27;\n&#x27;; // 30
+    AddOne(&amp;numbers[0]);
+    PrintArray(numbers, count);   // 11 20 30
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>12</span><strong>12_reference.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/06-arrays-pointers-references.html">배열, 포인터, 참조와 2차원 데이터</a> · <a href="examples/12_reference.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+void Damage(int&amp; hp, int amount) { hp -= amount; }
+int main() {
+    int hp = 100, other = 500;
+    int&amp; alias = hp;
+    Damage(alias, 20);
+    std::cout &lt;&lt; hp &lt;&lt; &#x27;\n&#x27;;       // 80
+    alias = other;                 // hp에 500을 대입
+    const int* readOnly = &amp;hp;
+    int* const fixedAddress = &amp;hp;
+    *fixedAddress = 300;
+    const int&amp; view = hp;
+    std::cout &lt;&lt; *readOnly &lt;&lt; &#x27; &#x27; &lt;&lt; view &lt;&lt; &#x27;\n&#x27;; // 300 300
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>13</span><strong>13_board.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/06-arrays-pointers-references.html">배열, 포인터, 참조와 2차원 데이터</a> · <a href="examples/13_board.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+void PrintBoard(const int board[][3], int rows) {
+    for (int row = 0; row &lt; rows; ++row) {
+        for (int col = 0; col &lt; 3; ++col) std::cout &lt;&lt; board[row][col] &lt;&lt; &#x27; &#x27;;
+        std::cout &lt;&lt; &#x27;\n&#x27;;
+    }
+}
+int main() {
+    int board[2][3] = {{10,20,30}, {40,50,60}};
+    PrintBoard(board, 2);
+    int flat[6] = {10,20,30,40,50,60};
+    std::cout &lt;&lt; flat[1 * 3 + 2] &lt;&lt; &#x27;\n&#x27;; // 60
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>14</span><strong>14_string.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/07-strings-search.html">문자열과 문자열 검색</a> · <a href="examples/14_string.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+int main() {
+    std::string name = &quot;YoonYoungHo&quot;;
+    name.insert(4, &quot;_&quot;);
+    name.erase(4, 1);
+    name.replace(0, 4, &quot;Kim&quot;);
+    auto pos = name.find(&quot;Young&quot;);
+    if (pos != std::string::npos) std::cout &lt;&lt; pos &lt;&lt; &#x27;\n&#x27;; // 3
+    std::cout &lt;&lt; name.substr(0, 3) &lt;&lt; &#x27;\n&#x27;;                 // Kim
+    std::cout &lt;&lt; std::string(&quot;A B&quot;).size() &lt;&lt; &#x27;\n&#x27;;         // 3
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>15</span><strong>15_getline.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/07-strings-search.html">문자열과 문자열 검색</a> · <a href="examples/15_getline.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;limits&gt;
+#include &lt;string&gt;
+int main() {
+    int level = 0;
+    std::string message;
+    if (!(std::cin &gt;&gt; level)) return 1;
+    std::cin.ignore(std::numeric_limits&lt;std::streamsize&gt;::max(), &#x27;\n&#x27;);
+    std::getline(std::cin, message);
+    std::cout &lt;&lt; level &lt;&lt; &quot;: &quot; &lt;&lt; message &lt;&lt; &#x27;\n&#x27;;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>16</span><strong>16_find.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/07-strings-search.html">문자열과 문자열 검색</a> · <a href="examples/16_find.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+int MyFind(const std::string&amp; text, const std::string&amp; need) {
+    if (need.empty()) return 0;
+    if (need.size() &gt; text.size()) return -1;
+    for (std::size_t i = 0; i &lt;= text.size() - need.size(); ++i) {
+        std::size_t j = 0;
+        while (j &lt; need.size() &amp;&amp; text[i + j] == need[j]) ++j;
+        if (j == need.size()) return static_cast&lt;int&gt;(i);
+    }
+    return -1;
+}
+int main() {
+    std::cout &lt;&lt; MyFind(&quot;sadbutsad&quot;, &quot;dbu&quot;) &lt;&lt; &#x27;\n&#x27;; // 2
+    std::cout &lt;&lt; MyFind(&quot;abc&quot;, &quot;xyz&quot;) &lt;&lt; &#x27;\n&#x27;;      // -1
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>17</span><strong>17_struct_enum.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/08-structs-classes.html">구조체, 열거형과 클래스</a> · <a href="examples/17_struct_enum.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+enum class Job { Warrior, Mage };
+struct Student {
+    std::string name;
+    int kor = 0, eng = 0, math = 0;
+    double Average() const { return (kor + eng + math) / 3.0; }
+};
+int main() {
+    Student student{&quot;Kim&quot;, 80, 90, 85};
+    Student* p = &amp;student;
+    Job job = Job::Mage;
+    std::cout &lt;&lt; p-&gt;name &lt;&lt; &#x27; &#x27; &lt;&lt; student.Average() &lt;&lt; &#x27;\n&#x27;;
+    std::cout &lt;&lt; static_cast&lt;int&gt;(job) &lt;&lt; &#x27;\n&#x27;;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>18</span><strong>18_class.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/08-structs-classes.html">구조체, 열거형과 클래스</a> · <a href="examples/18_class.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+class Player {
+    std::string name;
+    int hp = 100;
+public:
+    explicit Player(const std::string&amp; name) : name(name) {}
+    void SetName(const std::string&amp; name) {
+        if (!name.empty()) this-&gt;name = name;
+    }
+    void Damage(int amount) {
+        if (amount &lt;= 0) return;
+        hp = amount &gt;= hp ? 0 : hp - amount;
+    }
+    int GetHP() const { return hp; }
+    const std::string&amp; GetName() const { return name; }
+};
+int main() {
+    Player player(&quot;Warrior&quot;);
+    player.Damage(30);
+    std::cout &lt;&lt; player.GetName() &lt;&lt; &#x27; &#x27; &lt;&lt; player.GetHP() &lt;&lt; &#x27;\n&#x27;;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>19</span><strong>19_lifetime.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/09-lifetime-memory.html">생성자, 소멸자와 동적 할당</a> · <a href="examples/19_lifetime.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+class Monster {
+    static int count;
+public:
+    Monster() { ++count; }
+    ~Monster() { --count; }
+    Monster(const Monster&amp;) = delete;
+    Monster&amp; operator=(const Monster&amp;) = delete;
+    static int Count() { return count; }
+};
+int Monster::count = 0;
+int main() {
+    std::cout &lt;&lt; Monster::Count() &lt;&lt; &#x27;\n&#x27;; // 0
+    {
+        Monster a, b;
+        std::cout &lt;&lt; Monster::Count() &lt;&lt; &#x27;\n&#x27;; // 2
+    }
+    std::cout &lt;&lt; Monster::Count() &lt;&lt; &#x27;\n&#x27;; // 0
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>20</span><strong>20_dynamic.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/09-lifetime-memory.html">생성자, 소멸자와 동적 할당</a> · <a href="examples/20_dynamic.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+int main() {
+    int count = 3;
+    int* scores = new int[count]{};
+    for (int i = 0; i &lt; count; ++i) scores[i] = (i + 1) * 10;
+    for (int i = 0; i &lt; count; ++i) std::cout &lt;&lt; scores[i] &lt;&lt; &#x27; &#x27;;
+    std::cout &lt;&lt; &#x27;\n&#x27;;
+    delete[] scores;
+    scores = nullptr;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>21</span><strong>21_polymorphism.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/10-inheritance-polymorphism.html">상속, 가상 함수, 추상 클래스와 캐스팅</a> · <a href="examples/21_polymorphism.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+class Skill {
+public:
+    virtual ~Skill() = default;
+    virtual void Use() = 0;
+};
+class FireBall : public Skill {
+public:
+    void Use() override { std::cout &lt;&lt; &quot;Fireball\n&quot;; }
+};
+class Heal : public Skill {
+public:
+    void Use() override { std::cout &lt;&lt; &quot;Heal\n&quot;; }
+};
+int main() {
+    Skill* skills[2] = {new FireBall, new Heal};
+    for (Skill* skill : skills) {
+        skill-&gt;Use();
+        delete skill;
+    }
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>22</span><strong>22_cast.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/10-inheritance-polymorphism.html">상속, 가상 함수, 추상 클래스와 캐스팅</a> · <a href="examples/22_cast.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+class Parent { public: virtual ~Parent() = default; };
+class Warrior : public Parent {
+public:
+    void Attack() { std::cout &lt;&lt; &quot;Sword attack\n&quot;; }
+};
+class Mage : public Parent {};
+int main() {
+    Parent* character = new Warrior;
+    if (auto* warrior = dynamic_cast&lt;Warrior*&gt;(character)) warrior-&gt;Attack();
+    std::cout &lt;&lt; (dynamic_cast&lt;Mage*&gt;(character) == nullptr) &lt;&lt; &#x27;\n&#x27;;
+    delete character;
+    int value = 5;                  // 원래 const가 아님
+    const int* read = &amp;value;
+    int* write = const_cast&lt;int*&gt;(read);
+    *write = 10;
+    std::cout &lt;&lt; value &lt;&lt; &#x27;\n&#x27;;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>23</span><strong>23_vector.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/11-containers-iterators.html">vector, list, 반복자와 직접 만든 자료구조</a> · <a href="examples/23_vector.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+int main() {
+    std::vector&lt;int&gt; values;
+    values.reserve(10);
+    std::cout &lt;&lt; values.size() &lt;&lt; &#x27;\n&#x27;; // 0
+    values.push_back(10);
+    values.push_back(20);
+    values.resize(4, 0);
+    values[2] = 30;
+    for (int value : values) std::cout &lt;&lt; value &lt;&lt; &#x27; &#x27;; // 10 20 30 0
+    std::cout &lt;&lt; &#x27;\n&#x27;;
+    if (!values.empty()) values.pop_back();
+    auto oldCapacity = values.capacity();
+    values.clear();
+    std::cout &lt;&lt; values.size() &lt;&lt; &#x27; &#x27; &lt;&lt; (values.capacity() == oldCapacity) &lt;&lt; &#x27;\n&#x27;; // 0 1
+    std::vector&lt;std::vector&lt;int&gt;&gt; board(3, std::vector&lt;int&gt;(4, 0));
+    board[2][3] = 1;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>24</span><strong>24_list.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/11-containers-iterators.html">vector, list, 반복자와 직접 만든 자료구조</a> · <a href="examples/24_list.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;list&gt;
+int main() {
+    std::list&lt;int&gt; values{1,2,3,4,5};
+    for (auto it = values.begin(); it != values.end();) {
+        if (*it % 2 == 0) it = values.erase(it);
+        else ++it;
+    }
+    values.insert(values.begin(), 99); // 지정 위치 앞에 삽입
+    for (int value : values) std::cout &lt;&lt; value &lt;&lt; &#x27; &#x27;; // 99 1 3 5
+    std::cout &lt;&lt; &#x27;\n&#x27;;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>25</span><strong>25_template.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/12-templates-operators.html">템플릿, auto와 연산자 오버로딩</a> · <a href="examples/25_template.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+template&lt;typename T&gt;
+T Add(T left, T right) { return left + right; }
+template&lt;typename T&gt;
+class Cube {
+    T first, second;
+public:
+    Cube(const T&amp; a, const T&amp; b) : first(a), second(b) {}
+    const T&amp; GetFirst() const { return first; }
+};
+int main() {
+    std::cout &lt;&lt; Add&lt;int&gt;(10, 20) &lt;&lt; &#x27;\n&#x27;; // 30
+    std::cout &lt;&lt; Add&lt;double&gt;(1.5, 2.5) &lt;&lt; &#x27;\n&#x27;; // 4
+    Cube&lt;std::string&gt; weapons(&quot;Sword&quot;, &quot;Shield&quot;);
+    std::cout &lt;&lt; weapons.GetFirst() &lt;&lt; &#x27;\n&#x27;;
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>26</span><strong>26_operator.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/12-templates-operators.html">템플릿, auto와 연산자 오버로딩</a> · <a href="examples/26_operator.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+struct Position {
+    int x = 0, y = 0;
+    bool operator==(const Position&amp; other) const {
+        return x == other.x &amp;&amp; y == other.y;
+    }
+    bool operator!=(const Position&amp; other) const { return !(*this == other); }
+};
+int main() {
+    Position snake{3,4}, apple{3,4};
+    std::cout &lt;&lt; (snake == apple) &lt;&lt; &#x27;\n&#x27;; // 1
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>27</span><strong>27_baseball.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/13-game-design.html">게임을 만들며 연결한 개념</a> · <a href="examples/27_baseball.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+int main() {
+    int answer[3] = {1,2,3};
+    int guess[3] = {1,3,2};
+    int strikes = 0, balls = 0;
+    for (int i = 0; i &lt; 3; ++i) {
+        for (int j = 0; j &lt; 3; ++j) {
+            if (guess[i] == answer[j]) {
+                if (i == j) ++strikes;
+                else ++balls;
+            }
+        }
+    }
+    std::cout &lt;&lt; strikes &lt;&lt; &quot;S &quot; &lt;&lt; balls &lt;&lt; &quot;B\n&quot;; // 1S 2B
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>28</span><strong>28_diagonal.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/13-game-design.html">게임을 만들며 연결한 개념</a> · <a href="examples/28_diagonal.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+int main() {
+    constexpr int N = 3;
+    char board[N*N] = {&#x27;*&#x27;,&#x27;1&#x27;,&#x27;*&#x27;, &#x27;2&#x27;,&#x27;*&#x27;,&#x27;3&#x27;, &#x27;*&#x27;,&#x27;4&#x27;,&#x27;*&#x27;};
+    bool left = true, right = true;
+    for (int i = 0; i &lt; N; ++i) {
+        left = left &amp;&amp; board[i * N + i] == &#x27;*&#x27;;
+        right = right &amp;&amp; board[i * N + (N - 1 - i)] == &#x27;*&#x27;;
+    }
+    std::cout &lt;&lt; left &lt;&lt; &#x27; &#x27; &lt;&lt; right &lt;&lt; &#x27;\n&#x27;; // 1 1
+}
+</code></pre></div></div></details><details class="example-card"><summary><span>29</span><strong>29_singleton.cpp</strong><b>+</b></summary><div class="example-content"><p>관련 개념: <a href="chapters/13-game-design.html">게임을 만들며 연결한 개념</a> · <a href="examples/29_singleton.cpp" download>파일 내려받기 ↓</a></p><div class="code-block"><div class="code-toolbar"><span>C++</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+class GameManager {
+    GameManager() = default;
+    ~GameManager() = default;
+    GameManager(const GameManager&amp;) = delete;
+    GameManager&amp; operator=(const GameManager&amp;) = delete;
+public:
+    static GameManager&amp; Instance() {
+        static GameManager instance;
+        return instance;
+    }
+    void Run() { std::cout &lt;&lt; &quot;Game starts\n&quot;; }
+};
+int main() { GameManager::Instance().Run(); }
+</code></pre></div></div></details></div></main><footer><span>C++ Learning Notes · 2026</span><a href="https://github.com/YYH96/cpp-learning-notes">원본 문서와 코드 ↗</a></footer></div><div class="toast" role="status" aria-live="polite"></div></body></html>

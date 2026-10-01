@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="C++ 수업을 정리한 15개 챕터와 실행 예제 29개. 기초 문법부터 클래스, 자료구조, 게임 설계까지."><title>상속, 가상 함수, 추상 클래스와 캐스팅 · C++ Learning Notes</title><link rel="stylesheet" href="../assets/style.css"><script defer src="../assets/app.js"></script></head>
+<body><a class="skip" href="#main">본문으로 이동</a><aside class="sidebar" id="sidebar"><a class="brand" href="../index.html"><span class="brand-icon">C<span>++</span></span><span>Learning Notes<small>배운 것을, 내 것으로.</small></span></a><div class="search"><span aria-hidden="true">⌕</span><input id="chapter-search" type="search" placeholder="챕터 찾아보기" aria-label="챕터 검색"></div><nav aria-label="학습 목차"><a class="overview" href="../index.html">↗ 학습 노트 홈</a><p class="nav-label">THE CHAPTERS <span>15</span></p><div class="chapter-list"><a class="chapter-link " href="../chapters/01-program-basics.html" data-search="프로그램의 구조와 개발 도구 소스가 실행 파일이 되는 과정을 이해하고 디버깅 도구를 사용한다."><span>01</span>프로그램의 구조와 개발 도구</a><a class="chapter-link " href="../chapters/02-io-types.html" data-search="입출력, 자료형, 변수와 상수 입력·출력과 자료형을 선택하고 초기화·형변환을 적용한다."><span>02</span>입출력, 자료형, 변수와 상수</a><a class="chapter-link " href="../chapters/03-operators-conditions.html" data-search="연산자와 조건문 연산 결과와 조건 분기를 이해하고 비트 플래그를 구성한다."><span>03</span>연산자와 조건문</a><a class="chapter-link " href="../chapters/04-loops.html" data-search="반복문과 반복 제어 반복 횟수·종료 조건을 설계하고 break·continue를 사용한다."><span>04</span>반복문과 반복 제어</a><a class="chapter-link " href="../chapters/05-functions-scope.html" data-search="함수, 오버로딩, 재귀와 범위 기능을 함수로 분리하고 재귀·오버로딩·이름 범위를 설명한다."><span>05</span>함수, 오버로딩, 재귀와 범위</a><a class="chapter-link " href="../chapters/06-arrays-pointers-references.html" data-search="배열, 포인터, 참조와 2차원 데이터 값·주소·참조의 차이를 이해하고 배열 인덱스를 안전하게 다룬다."><span>06</span>배열, 포인터, 참조와 2차원 데이터</a><a class="chapter-link " href="../chapters/07-strings-search.html" data-search="문자열과 문자열 검색 C 문자열과 string의 차이를 설명하고 문자열 검색을 구현한다."><span>07</span>문자열과 문자열 검색</a><a class="chapter-link " href="../chapters/08-structs-classes.html" data-search="구조체, 열거형과 클래스 구조체와 클래스로 데이터를 묶고 접근 권한을 설계한다."><span>08</span>구조체, 열거형과 클래스</a><a class="chapter-link " href="../chapters/09-lifetime-memory.html" data-search="생성자, 소멸자와 동적 할당 객체 수명과 동적 메모리의 생성·해제 책임을 이해한다."><span>09</span>생성자, 소멸자와 동적 할당</a><a class="chapter-link active" href="../chapters/10-inheritance-polymorphism.html" data-search="상속, 가상 함수, 추상 클래스와 캐스팅 가상 함수와 추상 클래스로 공통 인터페이스를 설계한다."><span>10</span>상속, 가상 함수, 추상 클래스와 캐스팅</a><a class="chapter-link " href="../chapters/11-containers-iterators.html" data-search="vector, list, 반복자와 직접 만든 자료구조 컨테이너와 반복자의 동작을 이해하고 직접 구현한 자료구조를 읽는다."><span>11</span>vector, list, 반복자와 직접 만든 자료구조</a><a class="chapter-link " href="../chapters/12-templates-operators.html" data-search="템플릿, auto와 연산자 오버로딩 자료형에 독립적인 함수와 사용자 정의 연산을 작성한다."><span>12</span>템플릿, auto와 연산자 오버로딩</a><a class="chapter-link " href="../chapters/13-game-design.html" data-search="게임을 만들며 연결한 개념 게임 루프·좌표·씬 전환에 개별 개념을 연결한다."><span>13</span>게임을 만들며 연결한 개념</a><a class="chapter-link " href="../chapters/14-review-corrections.html" data-search="복습할 때 바로잡아야 할 부분 수업 원문의 미완성 부분과 복습 시 주의할 규칙을 구분한다."><span>14</span>복습할 때 바로잡아야 할 부분</a><a class="chapter-link " href="../chapters/15-learning-checklist.html" data-search="내가 설명하고 구현할 수 있어야 하는 것 학습 내용을 자신의 말로 설명하고 직접 구현할 수 있는지 확인한다."><span>15</span>내가 설명하고 구현할 수 있어야 하는 것</a></div><p class="no-results" hidden>검색 결과가 없습니다.</p><a class="examples-link" href="../examples.html">&lt;/&gt; 실행 예제 모아보기 <span>29</span></a></nav><div class="sidebar-bottom"><span class="status-dot"></span> MSVC C++17 검증 완료<a href="https://github.com/YYH96/cpp-learning-notes" target="_blank" rel="noopener">GitHub ↗</a></div></aside><div class="page-shell"><header class="topbar"><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="학습 목차 열기">☰</button><span>C++ / <strong>상속, 가상 함수, 추상 클래스와 캐스팅</strong></span><button id="theme-toggle" type="button" aria-label="화면 테마 변경">◐ <span>테마</span></button></header><main id="main"><div class="reading"><div class="reading-eyebrow">CHAPTER 10 <span>/ 15</span></div><article><h1 id="10-상속-가상-함수-추상-클래스와-캐스팅">10. 상속, 가상 함수, 추상 클래스와 캐스팅</h1>
+<blockquote><strong>학습 목표</strong> · 가상 함수와 추상 클래스로 공통 인터페이스를 설계한다.</blockquote>
+<h2 id="상속과-호출-순서">상속과 호출 순서</h2>
+<p>public 상속에서는 파생 객체를 기반 객체의 역할로 사용할 수 있습니다. 부모의 private 멤버는 파생 클래스에서 직접 접근하지 못합니다. 생성은 부모 → 자식, 소멸은 자식 → 부모 순서로 진행됩니다. 다중 상속은 여러 기반 클래스를 가질 수 있지만 같은 이름과 공통 기반 클래스 때문에 모호성이 생길 수 있습니다. 수업에서는 CPU·GPU가 Device를 함께 상속하는 다이아몬드 형태와 명시적 부모 이름으로 호출하는 예를 다뤘습니다.</p>
+<h2 id="virtualoverride추상-클래스">virtual·override·추상 클래스</h2>
+<p>기반 포인터·참조를 통해 호출하더라도 실제 객체의 재정의 함수를 실행하려면 기반 함수가 virtual이어야 합니다. override는 재정의가 맞는지 컴파일러가 검사하게 합니다. 순수 가상 함수는 virtual void Use() = 0;처럼 선언합니다. 아직 구현되지 않은 순수 가상 함수가 있는 클래스는 직접 객체를 만들 수 없습니다. 기반 포인터로 파생 객체를 삭제하는 설계에는 기반의 virtual 소멸자가 필요합니다. <a href="https://learn.microsoft.com/en-us/cpp/cpp/virtual-functions?view=msvc-170">가상 함수 문서</a> 오버로딩은 매개변수가 다른 같은 이름의 함수, 오버라이딩은 상속받은 가상 함수의 재정의입니다. vtable은 흔히 사용하는 구현 방식이며 언어가 특정 테이블 구조를 강제하는 것은 아닙니다.</p>
+<div class="code-block"><div class="code-toolbar"><span>cpp</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+class Skill {
+public:
+    virtual ~Skill() = default;
+    virtual void Use() = 0;
+};
+class FireBall : public Skill {
+public:
+    void Use() override { std::cout &lt;&lt; &quot;Fireball\n&quot;; }
+};
+class Heal : public Skill {
+public:
+    void Use() override { std::cout &lt;&lt; &quot;Heal\n&quot;; }
+};
+int main() {
+    Skill* skills[2] = {new FireBall, new Heal};
+    for (Skill* skill : skills) {
+        skill-&gt;Use();
+        delete skill;
+    }
+}</code></pre></div>
+<p>📎 <a href="../examples/21_polymorphism.cpp">실행할 예제 파일</a></p>
+<p><strong>결과:</strong> Fireball, Heal. 원본 virtual.cpp에서 Character::AttackFunc는 virtual이 아니므로 Character*로 호출하면 Character 버전이 호출됩니다. 위 예제는 기반에 virtual을 둔 동작을 보여줍니다.</p>
+<h2 id="c-캐스트-4종">C++ 캐스트 4종</h2>
+<p><strong>static_cast:</strong> 숫자 변환과 검사 가능한 명시적 변환에 사용합니다. 실수 → 정수는 소수 부분이 사라집니다. 다운캐스팅에서 실제 타입을 실행 중 검증해주지는 않습니다. <strong>dynamic_cast:</strong> 다형적 기반 타입에서 실제 객체의 타입을 확인하며 내려갑니다. 포인터 변환 실패는 nullptr, 참조 변환 실패는 std::bad_cast입니다. <strong>const_cast:</strong> const 속성을 제거하거나 더합니다. 실제로 const인 객체를 이 방법으로 수정하면 정의되지 않은 동작입니다. 원래 수정 가능한 객체를 const 포인터로 보고 있던 경우와 구분합니다. <a href="https://learn.microsoft.com/en-us/cpp/cpp/const-cast-operator?view=msvc-170">const_cast 문서</a> <strong>reinterpret_cast:</strong> 주소 등의 저수준 표현을 다룹니다. 관련 없는 객체 타입으로 변환해서 그 타입인 것처럼 접근해도 안전해지는 것은 아닙니다.</p>
+<h2 id="검사한-뒤-사용하는-다운캐스팅">검사한 뒤 사용하는 다운캐스팅</h2>
+<div class="code-block"><div class="code-toolbar"><span>cpp</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+class Parent { public: virtual ~Parent() = default; };
+class Warrior : public Parent {
+public:
+    void Attack() { std::cout &lt;&lt; &quot;Sword attack\n&quot;; }
+};
+class Mage : public Parent {};
+int main() {
+    Parent* character = new Warrior;
+    if (auto* warrior = dynamic_cast&lt;Warrior*&gt;(character)) warrior-&gt;Attack();
+    std::cout &lt;&lt; (dynamic_cast&lt;Mage*&gt;(character) == nullptr) &lt;&lt; &#x27;\n&#x27;;
+    delete character;
+    int value = 5;                  // 원래 const가 아님
+    const int* read = &amp;value;
+    int* write = const_cast&lt;int*&gt;(read);
+    *write = 10;
+    std::cout &lt;&lt; value &lt;&lt; &#x27;\n&#x27;;
+}</code></pre></div>
+<p>📎 <a href="../examples/22_cast.cpp">실행할 예제 파일</a></p></article><nav class="page-navigation" aria-label="이전 다음 챕터"><a href="09-lifetime-memory.html"><small>← 이전 챕터</small>생성자, 소멸자와 동적 할당</a><a href="11-containers-iterators.html"><small>다음 챕터 →</small>vector, list, 반복자와 직접 만든 자료구조</a></nav></div></main><footer><span>C++ Learning Notes · 2026</span><a href="https://github.com/YYH96/cpp-learning-notes">원본 문서와 코드 ↗</a></footer></div><aside class="page-toc"><span>이 페이지에서</span><a href="#상속과-호출-순서">상속과 호출 순서</a><a href="#virtualoverride추상-클래스">virtual·override·추상 클래스</a><a href="#c-캐스트-4종">C++ 캐스트 4종</a><a href="#검사한-뒤-사용하는-다운캐스팅">검사한 뒤 사용하는 다운캐스팅</a></aside><div class="toast" role="status" aria-live="polite"></div></body></html>

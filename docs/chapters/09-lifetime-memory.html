@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="C++ 수업을 정리한 15개 챕터와 실행 예제 29개. 기초 문법부터 클래스, 자료구조, 게임 설계까지."><title>생성자, 소멸자와 동적 할당 · C++ Learning Notes</title><link rel="stylesheet" href="../assets/style.css"><script defer src="../assets/app.js"></script></head>
+<body><a class="skip" href="#main">본문으로 이동</a><aside class="sidebar" id="sidebar"><a class="brand" href="../index.html"><span class="brand-icon">C<span>++</span></span><span>Learning Notes<small>배운 것을, 내 것으로.</small></span></a><div class="search"><span aria-hidden="true">⌕</span><input id="chapter-search" type="search" placeholder="챕터 찾아보기" aria-label="챕터 검색"></div><nav aria-label="학습 목차"><a class="overview" href="../index.html">↗ 학습 노트 홈</a><p class="nav-label">THE CHAPTERS <span>15</span></p><div class="chapter-list"><a class="chapter-link " href="../chapters/01-program-basics.html" data-search="프로그램의 구조와 개발 도구 소스가 실행 파일이 되는 과정을 이해하고 디버깅 도구를 사용한다."><span>01</span>프로그램의 구조와 개발 도구</a><a class="chapter-link " href="../chapters/02-io-types.html" data-search="입출력, 자료형, 변수와 상수 입력·출력과 자료형을 선택하고 초기화·형변환을 적용한다."><span>02</span>입출력, 자료형, 변수와 상수</a><a class="chapter-link " href="../chapters/03-operators-conditions.html" data-search="연산자와 조건문 연산 결과와 조건 분기를 이해하고 비트 플래그를 구성한다."><span>03</span>연산자와 조건문</a><a class="chapter-link " href="../chapters/04-loops.html" data-search="반복문과 반복 제어 반복 횟수·종료 조건을 설계하고 break·continue를 사용한다."><span>04</span>반복문과 반복 제어</a><a class="chapter-link " href="../chapters/05-functions-scope.html" data-search="함수, 오버로딩, 재귀와 범위 기능을 함수로 분리하고 재귀·오버로딩·이름 범위를 설명한다."><span>05</span>함수, 오버로딩, 재귀와 범위</a><a class="chapter-link " href="../chapters/06-arrays-pointers-references.html" data-search="배열, 포인터, 참조와 2차원 데이터 값·주소·참조의 차이를 이해하고 배열 인덱스를 안전하게 다룬다."><span>06</span>배열, 포인터, 참조와 2차원 데이터</a><a class="chapter-link " href="../chapters/07-strings-search.html" data-search="문자열과 문자열 검색 C 문자열과 string의 차이를 설명하고 문자열 검색을 구현한다."><span>07</span>문자열과 문자열 검색</a><a class="chapter-link " href="../chapters/08-structs-classes.html" data-search="구조체, 열거형과 클래스 구조체와 클래스로 데이터를 묶고 접근 권한을 설계한다."><span>08</span>구조체, 열거형과 클래스</a><a class="chapter-link active" href="../chapters/09-lifetime-memory.html" data-search="생성자, 소멸자와 동적 할당 객체 수명과 동적 메모리의 생성·해제 책임을 이해한다."><span>09</span>생성자, 소멸자와 동적 할당</a><a class="chapter-link " href="../chapters/10-inheritance-polymorphism.html" data-search="상속, 가상 함수, 추상 클래스와 캐스팅 가상 함수와 추상 클래스로 공통 인터페이스를 설계한다."><span>10</span>상속, 가상 함수, 추상 클래스와 캐스팅</a><a class="chapter-link " href="../chapters/11-containers-iterators.html" data-search="vector, list, 반복자와 직접 만든 자료구조 컨테이너와 반복자의 동작을 이해하고 직접 구현한 자료구조를 읽는다."><span>11</span>vector, list, 반복자와 직접 만든 자료구조</a><a class="chapter-link " href="../chapters/12-templates-operators.html" data-search="템플릿, auto와 연산자 오버로딩 자료형에 독립적인 함수와 사용자 정의 연산을 작성한다."><span>12</span>템플릿, auto와 연산자 오버로딩</a><a class="chapter-link " href="../chapters/13-game-design.html" data-search="게임을 만들며 연결한 개념 게임 루프·좌표·씬 전환에 개별 개념을 연결한다."><span>13</span>게임을 만들며 연결한 개념</a><a class="chapter-link " href="../chapters/14-review-corrections.html" data-search="복습할 때 바로잡아야 할 부분 수업 원문의 미완성 부분과 복습 시 주의할 규칙을 구분한다."><span>14</span>복습할 때 바로잡아야 할 부분</a><a class="chapter-link " href="../chapters/15-learning-checklist.html" data-search="내가 설명하고 구현할 수 있어야 하는 것 학습 내용을 자신의 말로 설명하고 직접 구현할 수 있는지 확인한다."><span>15</span>내가 설명하고 구현할 수 있어야 하는 것</a></div><p class="no-results" hidden>검색 결과가 없습니다.</p><a class="examples-link" href="../examples.html">&lt;/&gt; 실행 예제 모아보기 <span>29</span></a></nav><div class="sidebar-bottom"><span class="status-dot"></span> MSVC C++17 검증 완료<a href="https://github.com/YYH96/cpp-learning-notes" target="_blank" rel="noopener">GitHub ↗</a></div></aside><div class="page-shell"><header class="topbar"><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="학습 목차 열기">☰</button><span>C++ / <strong>생성자, 소멸자와 동적 할당</strong></span><button id="theme-toggle" type="button" aria-label="화면 테마 변경">◐ <span>테마</span></button></header><main id="main"><div class="reading"><div class="reading-eyebrow">CHAPTER 09 <span>/ 15</span></div><article><h1 id="09-생성자-소멸자와-동적-할당">09. 생성자, 소멸자와 동적 할당</h1>
+<blockquote><strong>학습 목표</strong> · 객체 수명과 동적 메모리의 생성·해제 책임을 이해한다.</blockquote>
+<h2 id="객체의-시작과-끝">객체의 시작과 끝</h2>
+<p>생성자는 객체를 초기화하고 소멸자는 객체가 끝날 때 정리합니다. 멤버 초기화 목록은 생성자 뒤의 콜론으로 작성하며, 실제 초기화 순서는 멤버의 선언 순서입니다. 기본 생성자·매개변수 생성자·복사 생성자와 이동 생성자 개요를 배웠습니다. std::move는 그 자체로 데이터를 옮기는 명령이 아니라 이동을 선택할 수 있도록 표현식을 바꾸는 캐스트입니다. = default는 기본 동작을 명시하고 = delete는 사용을 금지합니다. raw 포인터로 자원을 소유하는 객체를 기본 복사하면 같은 자원을 두 번 지울 수 있으므로 깊은 복사 또는 복사 금지가 필요합니다.</p>
+<h2 id="static-멤버">static 멤버</h2>
+<p>static 멤버 변수는 객체마다 생기지 않고 클래스에서 공유합니다. static 멤버 함수에는 this가 없으며 클래스 이름으로 호출할 수 있습니다.</p>
+<div class="code-block"><div class="code-toolbar"><span>cpp</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+class Monster {
+    static int count;
+public:
+    Monster() { ++count; }
+    ~Monster() { --count; }
+    Monster(const Monster&amp;) = delete;
+    Monster&amp; operator=(const Monster&amp;) = delete;
+    static int Count() { return count; }
+};
+int Monster::count = 0;
+int main() {
+    std::cout &lt;&lt; Monster::Count() &lt;&lt; &#x27;\n&#x27;; // 0
+    {
+        Monster a, b;
+        std::cout &lt;&lt; Monster::Count() &lt;&lt; &#x27;\n&#x27;; // 2
+    }
+    std::cout &lt;&lt; Monster::Count() &lt;&lt; &#x27;\n&#x27;; // 0
+}</code></pre></div>
+<p>📎 <a href="../examples/19_lifetime.cpp">실행할 예제 파일</a></p>
+<h2 id="newdelete와-메모리-관리">new/delete와 메모리 관리</h2>
+<p>new T는 객체 하나를 만들고 delete로 지웁니다. new T[n]은 배열을 만들고 delete[]로 지웁니다. raw 포인터가 범위를 벗어난다고 가리키는 동적 객체가 자동 삭제되지는 않습니다. 삭제 후 포인터를 nullptr로 만드는 것은 해당 변수의 재사용 실수를 줄이지만, 같은 객체를 가리키던 다른 포인터까지 바꾸지는 않습니다. malloc/free는 저장 공간을 다루며 C++ 클래스의 생성자·소멸자를 자동 호출하지 않습니다. 수업에서는 MSVC의 crtdbg와 _CrtSetDbgFlag로 메모리 누수를 확인하는 방법도 소개했습니다.</p>
+<h2 id="런타임-크기의-배열">런타임 크기의 배열</h2>
+<div class="code-block"><div class="code-toolbar"><span>cpp</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+int main() {
+    int count = 3;
+    int* scores = new int[count]{};
+    for (int i = 0; i &lt; count; ++i) scores[i] = (i + 1) * 10;
+    for (int i = 0; i &lt; count; ++i) std::cout &lt;&lt; scores[i] &lt;&lt; &#x27; &#x27;;
+    std::cout &lt;&lt; &#x27;\n&#x27;;
+    delete[] scores;
+    scores = nullptr;
+}</code></pre></div>
+<p>📎 <a href="../examples/20_dynamic.cpp">실행할 예제 파일</a></p>
+<p>행별로 2차원 메모리를 할당했다면 <strong>각 행을 delete[]한 뒤 행 포인터 배열을 delete[]</strong>합니다. tic-tac-toe 실습은 이 자원을 클래스의 소멸자에서 정리하는 예입니다.</p></article><nav class="page-navigation" aria-label="이전 다음 챕터"><a href="08-structs-classes.html"><small>← 이전 챕터</small>구조체, 열거형과 클래스</a><a href="10-inheritance-polymorphism.html"><small>다음 챕터 →</small>상속, 가상 함수, 추상 클래스와 캐스팅</a></nav></div></main><footer><span>C++ Learning Notes · 2026</span><a href="https://github.com/YYH96/cpp-learning-notes">원본 문서와 코드 ↗</a></footer></div><aside class="page-toc"><span>이 페이지에서</span><a href="#객체의-시작과-끝">객체의 시작과 끝</a><a href="#static-멤버">static 멤버</a><a href="#newdelete와-메모리-관리">new/delete와 메모리 관리</a><a href="#런타임-크기의-배열">런타임 크기의 배열</a></aside><div class="toast" role="status" aria-live="polite"></div></body></html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="C++ 수업을 정리한 15개 챕터와 실행 예제 29개. 기초 문법부터 클래스, 자료구조, 게임 설계까지."><title>문자열과 문자열 검색 · C++ Learning Notes</title><link rel="stylesheet" href="../assets/style.css"><script defer src="../assets/app.js"></script></head>
+<body><a class="skip" href="#main">본문으로 이동</a><aside class="sidebar" id="sidebar"><a class="brand" href="../index.html"><span class="brand-icon">C<span>++</span></span><span>Learning Notes<small>배운 것을, 내 것으로.</small></span></a><div class="search"><span aria-hidden="true">⌕</span><input id="chapter-search" type="search" placeholder="챕터 찾아보기" aria-label="챕터 검색"></div><nav aria-label="학습 목차"><a class="overview" href="../index.html">↗ 학습 노트 홈</a><p class="nav-label">THE CHAPTERS <span>15</span></p><div class="chapter-list"><a class="chapter-link " href="../chapters/01-program-basics.html" data-search="프로그램의 구조와 개발 도구 소스가 실행 파일이 되는 과정을 이해하고 디버깅 도구를 사용한다."><span>01</span>프로그램의 구조와 개발 도구</a><a class="chapter-link " href="../chapters/02-io-types.html" data-search="입출력, 자료형, 변수와 상수 입력·출력과 자료형을 선택하고 초기화·형변환을 적용한다."><span>02</span>입출력, 자료형, 변수와 상수</a><a class="chapter-link " href="../chapters/03-operators-conditions.html" data-search="연산자와 조건문 연산 결과와 조건 분기를 이해하고 비트 플래그를 구성한다."><span>03</span>연산자와 조건문</a><a class="chapter-link " href="../chapters/04-loops.html" data-search="반복문과 반복 제어 반복 횟수·종료 조건을 설계하고 break·continue를 사용한다."><span>04</span>반복문과 반복 제어</a><a class="chapter-link " href="../chapters/05-functions-scope.html" data-search="함수, 오버로딩, 재귀와 범위 기능을 함수로 분리하고 재귀·오버로딩·이름 범위를 설명한다."><span>05</span>함수, 오버로딩, 재귀와 범위</a><a class="chapter-link " href="../chapters/06-arrays-pointers-references.html" data-search="배열, 포인터, 참조와 2차원 데이터 값·주소·참조의 차이를 이해하고 배열 인덱스를 안전하게 다룬다."><span>06</span>배열, 포인터, 참조와 2차원 데이터</a><a class="chapter-link active" href="../chapters/07-strings-search.html" data-search="문자열과 문자열 검색 C 문자열과 string의 차이를 설명하고 문자열 검색을 구현한다."><span>07</span>문자열과 문자열 검색</a><a class="chapter-link " href="../chapters/08-structs-classes.html" data-search="구조체, 열거형과 클래스 구조체와 클래스로 데이터를 묶고 접근 권한을 설계한다."><span>08</span>구조체, 열거형과 클래스</a><a class="chapter-link " href="../chapters/09-lifetime-memory.html" data-search="생성자, 소멸자와 동적 할당 객체 수명과 동적 메모리의 생성·해제 책임을 이해한다."><span>09</span>생성자, 소멸자와 동적 할당</a><a class="chapter-link " href="../chapters/10-inheritance-polymorphism.html" data-search="상속, 가상 함수, 추상 클래스와 캐스팅 가상 함수와 추상 클래스로 공통 인터페이스를 설계한다."><span>10</span>상속, 가상 함수, 추상 클래스와 캐스팅</a><a class="chapter-link " href="../chapters/11-containers-iterators.html" data-search="vector, list, 반복자와 직접 만든 자료구조 컨테이너와 반복자의 동작을 이해하고 직접 구현한 자료구조를 읽는다."><span>11</span>vector, list, 반복자와 직접 만든 자료구조</a><a class="chapter-link " href="../chapters/12-templates-operators.html" data-search="템플릿, auto와 연산자 오버로딩 자료형에 독립적인 함수와 사용자 정의 연산을 작성한다."><span>12</span>템플릿, auto와 연산자 오버로딩</a><a class="chapter-link " href="../chapters/13-game-design.html" data-search="게임을 만들며 연결한 개념 게임 루프·좌표·씬 전환에 개별 개념을 연결한다."><span>13</span>게임을 만들며 연결한 개념</a><a class="chapter-link " href="../chapters/14-review-corrections.html" data-search="복습할 때 바로잡아야 할 부분 수업 원문의 미완성 부분과 복습 시 주의할 규칙을 구분한다."><span>14</span>복습할 때 바로잡아야 할 부분</a><a class="chapter-link " href="../chapters/15-learning-checklist.html" data-search="내가 설명하고 구현할 수 있어야 하는 것 학습 내용을 자신의 말로 설명하고 직접 구현할 수 있는지 확인한다."><span>15</span>내가 설명하고 구현할 수 있어야 하는 것</a></div><p class="no-results" hidden>검색 결과가 없습니다.</p><a class="examples-link" href="../examples.html">&lt;/&gt; 실행 예제 모아보기 <span>29</span></a></nav><div class="sidebar-bottom"><span class="status-dot"></span> MSVC C++17 검증 완료<a href="https://github.com/YYH96/cpp-learning-notes" target="_blank" rel="noopener">GitHub ↗</a></div></aside><div class="page-shell"><header class="topbar"><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="학습 목차 열기">☰</button><span>C++ / <strong>문자열과 문자열 검색</strong></span><button id="theme-toggle" type="button" aria-label="화면 테마 변경">◐ <span>테마</span></button></header><main id="main"><div class="reading"><div class="reading-eyebrow">CHAPTER 07 <span>/ 15</span></div><article><h1 id="07-문자열과-문자열-검색">07. 문자열과 문자열 검색</h1>
+<blockquote><strong>학습 목표</strong> · C 문자열과 string의 차이를 설명하고 문자열 검색을 구현한다.</blockquote>
+<h2 id="c-문자열">C 문자열</h2>
+<p>char 배열의 끝에는 널 문자 <code>\0</code>이 필요합니다. strlen은 끝의 널 문자를 제외한 길이를 구하고, sizeof는 배열의 저장 크기를 구합니다. strcpy는 복사, strcat는 연결, strcmp는 비교, strstr는 부분 문자열 검색입니다. strcmp의 결과는 같으면 0, 앞 문자열이 작으면 음수, 크면 양수입니다. 정확히 −1 또는 1이라고 가정하지 않습니다. strtok 계열은 구분자로 나누면서 원본 버퍼를 바꿉니다. 수업의 strcpy_s·strcat_s·strtok_s는 MSVC 환경의 인터페이스입니다.</p>
+<h2 id="stdstring">std::string</h2>
+<p>string은 문자 저장 공간과 길이를 관리합니다. +·+=로 연결하고, size/length로 길이, empty로 비었는지 확인합니다. insert·erase·replace·substr·find를 배웠습니다. size/length에는 공백도 포함됩니다. std::string의 크기는 char 요소 수이므로 UTF-8 한글의 화면상 글자 수와 같지 않을 수 있습니다. replace(pos,count,text)와 substr(pos,count)의 두 번째 값은 끝 인덱스가 아니라 <strong>개수</strong>입니다. <a href="https://learn.microsoft.com/en-us/cpp/standard-library/basic-string-class?view=msvc-170">Microsoft string 문서</a></p>
+<h2 id="문자열-수정과-검색">문자열 수정과 검색</h2>
+<div class="code-block"><div class="code-toolbar"><span>cpp</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+int main() {
+    std::string name = &quot;YoonYoungHo&quot;;
+    name.insert(4, &quot;_&quot;);
+    name.erase(4, 1);
+    name.replace(0, 4, &quot;Kim&quot;);
+    auto pos = name.find(&quot;Young&quot;);
+    if (pos != std::string::npos) std::cout &lt;&lt; pos &lt;&lt; &#x27;\n&#x27;; // 3
+    std::cout &lt;&lt; name.substr(0, 3) &lt;&lt; &#x27;\n&#x27;;                 // Kim
+    std::cout &lt;&lt; std::string(&quot;A B&quot;).size() &lt;&lt; &#x27;\n&#x27;;         // 3
+}</code></pre></div>
+<p>📎 <a href="../examples/14_string.cpp">실행할 예제 파일</a></p>
+<h2 id="cin-다음에-getline-사용하기">cin 다음에 getline 사용하기</h2>
+<p>숫자 입력 뒤에 줄바꿈이 남아 있으면 getline이 빈 줄을 읽을 수 있습니다. 남은 줄을 ignore로 버리거나 getline(cin &gt;&gt; std::ws, text)를 사용합니다. ws는 앞의 공백까지 제거하므로 앞 공백을 보존해야 할 때는 ignore 방식이 적합합니다.</p>
+<div class="code-block"><div class="code-toolbar"><span>cpp</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;limits&gt;
+#include &lt;string&gt;
+int main() {
+    int level = 0;
+    std::string message;
+    if (!(std::cin &gt;&gt; level)) return 1;
+    std::cin.ignore(std::numeric_limits&lt;std::streamsize&gt;::max(), &#x27;\n&#x27;);
+    std::getline(std::cin, message);
+    std::cout &lt;&lt; level &lt;&lt; &quot;: &quot; &lt;&lt; message &lt;&lt; &#x27;\n&#x27;;
+}</code></pre></div>
+<p>📎 <a href="../examples/15_getline.cpp">실행할 예제 파일</a></p>
+<h2 id="부분-문자열-find-직접-구현--복습용-완성-예제">부분 문자열 find 직접 구현 — 복습용 완성 예제</h2>
+<p>수업의 실습_find구현.cpp는 항상 −1을 반환하는 틀입니다. 시작 위치를 하나씩 옮기며 찾는 문자열 전체가 일치하는지 검사합니다.</p>
+<div class="code-block"><div class="code-toolbar"><span>cpp</span><button class="copy-code" type="button">코드 복사</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+int MyFind(const std::string&amp; text, const std::string&amp; need) {
+    if (need.empty()) return 0;
+    if (need.size() &gt; text.size()) return -1;
+    for (std::size_t i = 0; i &lt;= text.size() - need.size(); ++i) {
+        std::size_t j = 0;
+        while (j &lt; need.size() &amp;&amp; text[i + j] == need[j]) ++j;
+        if (j == need.size()) return static_cast&lt;int&gt;(i);
+    }
+    return -1;
+}
+int main() {
+    std::cout &lt;&lt; MyFind(&quot;sadbutsad&quot;, &quot;dbu&quot;) &lt;&lt; &#x27;\n&#x27;; // 2
+    std::cout &lt;&lt; MyFind(&quot;abc&quot;, &quot;xyz&quot;) &lt;&lt; &#x27;\n&#x27;;      // -1
+}</code></pre></div>
+<p>📎 <a href="../examples/16_find.cpp">실행할 예제 파일</a></p></article><nav class="page-navigation" aria-label="이전 다음 챕터"><a href="06-arrays-pointers-references.html"><small>← 이전 챕터</small>배열, 포인터, 참조와 2차원 데이터</a><a href="08-structs-classes.html"><small>다음 챕터 →</small>구조체, 열거형과 클래스</a></nav></div></main><footer><span>C++ Learning Notes · 2026</span><a href="https://github.com/YYH96/cpp-learning-notes">원본 문서와 코드 ↗</a></footer></div><aside class="page-toc"><span>이 페이지에서</span><a href="#c-문자열">C 문자열</a><a href="#stdstring">std::string</a><a href="#문자열-수정과-검색">문자열 수정과 검색</a><a href="#cin-다음에-getline-사용하기">cin 다음에 getline 사용하기</a><a href="#부분-문자열-find-직접-구현--복습용-완성-예제">부분 문자열 find 직접 구현 — 복습용 완성 예제</a></aside><div class="toast" role="status" aria-live="polite"></div></body></html>

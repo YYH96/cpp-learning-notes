@@ -30,7 +30,7 @@ def inline(text):
         text = text.replace(f'ZZTOKEN{i}ZZ', markup)
     return text
 
-def markdown(text):
+def markdown(text, id_prefix=''):
     lines = text.splitlines(); blocks = []; i = 0
     while i < len(lines):
         line = lines[i]
@@ -43,10 +43,19 @@ def markdown(text):
         heading = re.match(r'^(#{1,6}) (.+)', line)
         if heading:
             n = len(heading[1]); title = heading[2]
-            blocks.append(f'<h{n} id="{slug(title)}">{inline(title)}</h{n}>'); i += 1; continue
+            blocks.append(f'<h{n} id="{id_prefix}{slug(title)}">{inline(title)}</h{n}>'); i += 1; continue
         if line == '---': blocks.append('<hr>'); i += 1; continue
         if line.startswith('> '):
             blocks.append('<blockquote>'+inline(line[2:])+'</blockquote>'); i += 1; continue
+        if line.startswith('|') and i + 1 < len(lines) and re.match(r'^\|[\s:|\-]+\|$', lines[i+1]):
+            def cells(row):
+                return [inline(cell.strip().replace('\\|', '|')) for cell in re.split(r'(?<!\\)\|', row.strip().strip('|'))]
+            header = cells(line); i += 2; rows = []
+            while i < len(lines) and lines[i].startswith('|'):
+                row = cells(lines[i])
+                rows.append('<tr>'+''.join((f'<th scope="row">{cell}</th>' if j == 0 else f'<td>{cell}</td>') for j,cell in enumerate(row))+'</tr>')
+                i += 1
+            blocks.append('<div class="table-scroll"><table class="concept-table"><thead><tr>'+''.join(f'<th scope="col">{cell}</th>' for cell in header)+'</tr></thead><tbody>'+''.join(rows)+'</tbody></table></div>'); continue
         if line.startswith('- '):
             items = []
             while i < len(lines) and lines[i].startswith('- '):
@@ -68,6 +77,12 @@ for path in CHAPTERS:
     title = re.search(r'^# \d+\. (.+)', text, re.M)[1]
     goal = re.search(r'학습 목표\*\* · (.+)', text)[1]
     meta.append({'name': path.stem, 'title': title, 'goal': goal, 'text': text, 'theory': THEORY[len(meta)]})
+for chapter in meta:
+    extra_path = ROOT / 'theory' / f'{chapter["name"]}.md'
+    chapter['extra'] = extra_path.read_text(encoding='utf-8') if extra_path.exists() else ''
+    headings = re.findall(r'^#{1,3} (.+)', chapter['extra']+'\n'+chapter['text'], re.M)
+    keywords = list(dict.fromkeys(re.findall(r'[^\W\d]\w*', chapter['extra']+'\n'+chapter['text'])))
+    chapter['search'] = ' '.join([chapter['title'], chapter['goal'], chapter['theory']['group'], *chapter['theory']['terms'], *headings, *keywords])
 
 def shell(title, content, prefix='', current='', toc=''):
     links = ''
@@ -76,12 +91,12 @@ def shell(title, content, prefix='', current='', toc=''):
         for i,c in enumerate(meta):
             if c['theory']['group'] != group: continue
             terms = ' '.join(c['theory']['terms'])
-            links += f'<a class="chapter-link {"active" if current == c["name"] else ""}" href="{prefix}chapters/{c["name"]}.html" data-search="{esc(c["title"]+" "+c["goal"]+" "+group+" "+terms)}"><span>{i+1:02}</span>{esc(c["title"])}</a>'
+            links += f'<a class="chapter-link {"active" if current == c["name"] else ""}" href="{prefix}chapters/{c["name"]}.html" data-search="{esc(c["search"])}"><span>{i+1:02}</span>{esc(c["title"])}</a>'
         links += '</div>'
     result = f'''<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="C++ 수업을 정리한 15개 챕터와 실행 예제 29개. 기초 문법부터 클래스, 자료구조, 게임 설계까지."><title>{esc(title)} · C++ Learning Notes</title><link rel="stylesheet" href="{prefix}assets/style.css"><script defer src="{prefix}assets/app.js"></script></head>
 <body><a class="skip" href="#main">본문으로 이동</a><aside class="sidebar" id="sidebar"><a class="brand" href="{prefix}index.html"><span class="brand-icon">C<span>++</span></span><span>Learning Notes<small>배운 것을, 내 것으로.</small></span></a><div class="search"><span aria-hidden="true">⌕</span><input id="chapter-search" type="search" placeholder="챕터 찾아보기" aria-label="챕터 검색"></div><nav aria-label="학습 목차"><a class="overview" href="{prefix}index.html">↗ 학습 노트 홈</a><p class="nav-label">THEORY TOPICS <span>15</span></p><div class="chapter-list">{links}</div><p class="no-results" hidden>검색 결과가 없습니다.</p><a class="examples-link" href="{prefix}examples.html">&lt;/&gt; 실행 예제 모아보기 <span>29</span></a></nav><div class="sidebar-bottom"><span class="status-dot"></span> MSVC C++17 검증 완료<a href="https://github.com/YYH96/cpp-learning-notes" target="_blank" rel="noopener">GitHub ↗</a></div></aside><div class="page-shell"><header class="topbar"><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="학습 목차 열기">☰</button><span>C++ / <strong>{esc(title)}</strong></span><button id="theme-toggle" type="button" aria-label="화면 테마 변경">◐ <span>테마</span></button></header><main id="main">{content}</main><footer><span>C++ Learning Notes · 2026</span><a href="https://github.com/YYH96/cpp-learning-notes">원본 문서와 코드 ↗</a></footer></div>{toc}<div class="toast" role="status" aria-live="polite"></div></body></html>'''
-    return result.replace('</head>', f'<link rel="stylesheet" href="{prefix}assets/theory.css"></head>')
+    return result.replace('THEORY TOPICS <span>15</span>', '이론 13 · 복습 2').replace('</head>', f'<link rel="stylesheet" href="{prefix}assets/theory.css"></head>')
 
 cards = ''.join(f'<a class="chapter-card" href="chapters/{c["name"]}.html" data-search="{esc(c["title"]+" "+c["goal"])}"><div class="card-top"><span>CHAPTER {i+1:02}</span><b>↗</b></div><h3>{esc(c["title"])}</h3><p>{esc(c["goal"])}</p><div class="card-bottom">학습 페이지 읽기 <span>→</span></div></a>' for i,c in enumerate(meta))
 home = f'''<section class="hero"><div class="eyebrow"><span></span> MY C++ STUDY ARCHIVE</div><h1>한 줄의 코드부터,<br><em>하나의 게임까지.</em></h1><p class="hero-description">수업에서 배운 C++를 개념과 예제로 다시 연결합니다.<br>기초 문법부터 객체 지향, 자료구조, 게임 설계까지<br>차근차근 읽어 나가는 나만의 학습 노트.</p><a class="primary-button" href="chapters/{meta[0]['name']}.html">첫 챕터부터 시작하기 <span>→</span></a><div class="hero-code" aria-hidden="true"><div class="code-dots"><i></i><i></i><i></i><span>my_learning.cpp</span></div><pre><span class="muted">// 이해하고, 만들고, 다시 정리하기</span>
@@ -100,14 +115,16 @@ for group_index,group in enumerate(GROUPS):
     for i,c in enumerate(meta):
         if c['theory']['group'] != group: continue
         tags = ''.join(f'<span>{esc(term)}</span>' for term in c['theory']['terms'])
-        searchable = ' '.join([c['title'], c['goal'], group, *c['theory']['terms']])
-        group_cards += f'<a class="chapter-card" href="chapters/{c["name"]}.html" data-search="{esc(searchable)}"><div class="card-top"><span>THEORY {i+1:02}</span><b>↗</b></div><h3>{esc(c["title"])}</h3><p>{esc(c["theory"]["definition"])}</p><div class="concept-tags">{tags}</div><div class="card-bottom">핵심 요약 · 개념 비교 <span>→</span></div></a>'
+        kind = 'REVIEW' if group == '복습' else 'THEORY'
+        group_cards += f'<a class="chapter-card" href="chapters/{c["name"]}.html" data-search="{esc(c["search"])}"><div class="card-top"><span>{kind} {i+1:02}</span><b>↗</b></div><h3>{esc(c["title"])}</h3><p>{esc(c["theory"]["definition"])}</p><div class="concept-tags">{tags}</div><div class="card-bottom">핵심 요약 · 개념 비교 <span>→</span></div></a>'
     groups_html += f'<section class="topic-group" id="topic-{group_index}"><div class="topic-heading"><span>{group_index+1:02}</span><h3>{esc(group)}</h3></div><div class="chapter-grid">{group_cards}</div></section>'
 theory_home = '<section class="chapter-section"><div class="section-heading"><div class="eyebrow">THEORY FIRST</div><h2>개념부터 짧고 명확하게.</h2><p>분야별 핵심 요약과 비교표를 먼저 읽고, 필요한 예제를 펼쳐 보세요.</p></div>'+group_nav+groups_html+'</section>'
 home = re.sub(r'<section class="chapter-section">[\s\S]*?</section>', lambda _: theory_home, home, count=1)
 home = home.replace('한 줄의 코드부터,<br><em>하나의 게임까지.</em>', '코드 전에 개념,<br><em>핵심만 한눈에.</em>')
 home = home.replace('수업에서 배운 C++를 개념과 예제로 다시 연결합니다.<br>기초 문법부터 객체 지향, 자료구조, 게임 설계까지<br>차근차근 읽어 나가는 나만의 학습 노트.', '기초 문법 · 함수와 데이터 · 객체 지향 · 자료구조 · 게임 설계.<br>이론을 분야별로 묶고, 정의와 차이를 짧게 정리했습니다.<br>개념을 확인한 뒤 관련 예제로 연결하세요.')
 home = home.replace('첫 챕터부터 시작하기', '이론부터 읽기')
+home = home.replace('개념을 확인한 뒤 관련 예제로 연결하세요.', '기본 문법과 짧은 예제를 먼저 읽고, 응용 코드를 펼쳐 보세요.')
+home = home.replace('<strong>15<span>CHAPTERS</span></strong><p>개념별 이론 정리</p>', '<strong>13<span>THEORY</span></strong><p>이론 13개 · 복습 2개</p>')
 (OUT/'index.html').write_text(shell('학습 노트 홈', home), encoding='utf-8')
 (OUT/'chapters').mkdir(exist_ok=True)
 for i,c in enumerate(meta):
@@ -120,23 +137,31 @@ for i,c in enumerate(meta):
     table_header = ''.join(f'<th scope="col">{esc(col)}</th>' for col in theory['columns'])
     table_rows = ''.join('<tr>'+''.join((f'<th scope="row">{esc(cell)}</th>' if j == 0 else f'<td>{esc(cell)}</td>') for j,cell in enumerate(row))+'</tr>' for row in theory['rows'])
     theory_content = f'<section class="theory-overview" id="theory-summary"><div class="eyebrow">한눈에 보는 핵심</div><p class="concept-definition">{esc(theory["definition"])}</p><div class="concept-grid">{theory_cards}</div></section><section id="concept-comparison"><h2>개념 비교</h2><div class="table-scroll"><table class="concept-table"><thead><tr>{table_header}</tr></thead><tbody>{table_rows}</tbody></table></div></section><section class="pitfall" id="common-pitfall"><strong>자주 헷갈리는 점</strong><p>{esc(theory["warning"])}</p></section>'
-    extra_path = ROOT / 'theory' / f'{c["name"]}.md'
     extra_headings = []
-    if extra_path.exists():
-        extra_text = extra_path.read_text(encoding='utf-8')
+    if c['extra']:
+        extra_text = c['extra']
         extra_headings = re.findall(r'^## (.+)', extra_text, re.M)
-        theory_content += '<section class="extra-theory">'+markdown(extra_text)+'</section>'
+        quick_nav = '<nav class="concept-navigation" aria-label="개념별 바로가기">'+''.join(f'<a href="#{slug(h)}">{esc(h.split(":")[0])}</a>' for h in extra_headings)+'</nav>'
+        theory_content = quick_nav + theory_content
+        theory_content += '<p class="snippet-guide">기본 문법 예제는 코드 조각입니다. 함수·클래스 선언은 main 밖, 나머지는 main 안에서 사용합니다. 출력에는 &lt;iostream&gt; 등 해당 기능의 헤더가 필요합니다. 완전한 실행 파일은 <a href="../examples.html">예제 모음</a>에서 받으세요.</p>'
+        topic_sections = re.split(r'(?=^## )', extra_text, flags=re.M)
+        theory_content += '<div class="extra-theory">'+''.join('<section class="topic-lesson">'+markdown(section)+'</section>' for section in topic_sections if section.strip())+'</div>'
     # Concise theory stays visible. Longer classroom notes and complete examples open on demand.
     body = re.sub(r'^# .+\n', '', body, count=1)
     body = re.sub(r'^\s*> \*\*학습 목표\*\* · .+\n', '', body, count=1)
     body = body.strip()
-    details_label = '복습 체크리스트 펼치기' if i == 14 else '상세 설명과 예제 펼치기'
-    details = f'<details class="lesson-details" id="lesson-details"><summary><span>{details_label}</span><small>필요한 내용만 골라 읽기</small><b>+</b></summary><div class="lesson-detail-content">{markdown(body)}</div></details>'
+    details_label = '전체 응용 예제와 상세 해설 펼치기'
+    details = f'<details class="lesson-details" id="lesson-details"><summary><span>{details_label}</span><small>필요한 내용만 골라 읽기</small><b>+</b></summary><div class="lesson-detail-content">{markdown(body, "detail-")}</div></details>'
+    if i >= 13:
+        review_heading = '실습 상태와 주의사항' if i == 13 else '직접 확인하는 체크리스트'
+        details = f'<section class="review-content" id="lesson-details"><h2>{review_heading}</h2>{markdown(body)}</section>'
     toc = '<aside class="page-toc"><span>이 페이지에서</span><a href="#theory-summary">핵심 요약</a><a href="#concept-comparison">개념 비교</a><a href="#common-pitfall">주의할 점</a><a href="#lesson-details">설명과 예제</a></aside>'
     toc = toc.replace('<a href="#lesson-details">', ''.join(f'<a href="#{slug(h)}">{esc(h)}</a>' for h in extra_headings)+'<a href="#lesson-details">')
     prev = f'<a href="{meta[i-1]["name"]}.html"><small>← 이전 챕터</small>{esc(meta[i-1]["title"])}</a>' if i else '<a href="../index.html"><small>← 전체 목차</small>학습 노트 홈</a>'
     nxt = f'<a href="{meta[i+1]["name"]}.html"><small>다음 챕터 →</small>{esc(meta[i+1]["title"])}</a>' if i<14 else '<a href="../examples.html"><small>다음 단계 →</small>예제 직접 실행하기</a>'
-    article = f'<div class="reading"><div class="reading-eyebrow">{esc(theory["group"])} <span>THEORY {i+1:02} / 15</span></div><article><h1>{esc(c["title"])}</h1>{theory_content}{details}</article><nav class="page-navigation" aria-label="이전 다음 챕터">{prev}{nxt}</nav></div>'
+    if i >= 13: toc = toc.replace('설명과 예제', '복습 항목')
+    kind = 'REVIEW' if i >= 13 else 'THEORY'
+    article = f'<div class="reading"><div class="reading-eyebrow">{esc(theory["group"])} <span>{kind} {i+1:02} / 15</span></div><article><h1>{esc(c["title"])}</h1>{theory_content}{details}</article><nav class="page-navigation" aria-label="이전 다음 챕터">{prev}{nxt}</nav></div>'
     (OUT/'chapters'/f'{c["name"]}.html').write_text(shell(c['title'], article, '../', c['name'], toc),encoding='utf-8')
 
 (OUT/'examples').mkdir(exist_ok=True)

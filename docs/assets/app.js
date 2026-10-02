@@ -26,7 +26,10 @@ search.addEventListener('input', () => {
   });
 });
 document.querySelectorAll('a[href="#lesson-details"]').forEach(link => {
-  link.addEventListener('click', () => { document.querySelector('#lesson-details').open = true; });
+  link.addEventListener('click', () => {
+    const target = document.querySelector('#lesson-details');
+    if (target.tagName === 'DETAILS') target.open = true;
+  });
 });
 const toast = document.querySelector('.toast');
 let toastTimer;

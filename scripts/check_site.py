@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 
@@ -43,3 +44,14 @@ assert '복습' in home
 for keyword in ['else if', 'static', 'dynamic_cast']:
     assert keyword in home, f'Missing searchable topic: {keyword}'
 print(f'Validated {len(pages)} HTML pages and {count} local links/assets/anchors; 29 example downloads.')
+
+manifest = json.loads((root.parent/'scripts/concepts.json').read_text(encoding='utf-8'))
+assert len(list((root/'concepts').glob('*.html'))) == len(manifest)
+assert len([c for c in manifest if c['group']=='연산자']) == 12
+assert not any('연산자와 조건문' in c['title'] for c in manifest)
+for c in manifest:
+    page = root/'concepts'/f"{c['name']}.html"
+    text = page.read_text(encoding='utf-8')
+    assert '<h1>'+c['title']+'</h1>' in text
+    assert '<details class="lesson-details"' not in text
+print(f"Validated {len(manifest)} independent concept pages and separate operator/conditional groups.")

@@ -1,6 +1,6 @@
 """Build dependency-free HTML pages from the public learning notes."""
 from pathlib import Path
-import re, html, json, shutil
+import re, html, json, shutil, hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'docs'
@@ -10,6 +10,7 @@ EXAMPLES = sorted((ROOT / 'examples').glob('*.cpp'))
 esc = html.escape
 THEORY = json.loads((ROOT / 'scripts/theory.json').read_text(encoding='utf-8'))
 GROUPS = list(dict.fromkeys(item['group'] for item in THEORY))
+ASSET_VERSION = hashlib.sha256(b''.join((OUT/'assets'/name).read_bytes() for name in ['style.css','theory.css','app.js'])).hexdigest()[:10]
 
 def slug(text):
     return re.sub(r'\s', '-', re.sub(r'[^\w\s-]', '', text.lower()))
@@ -110,9 +111,9 @@ def shell(title, content, prefix='', current='', toc=''):
             links += f'<a class="chapter-link {"active" if current == c["name"] else ""}" href="{prefix}{c["url"]}" data-search="{esc(c["search"])}"><span>{i+1:02}</span>{esc(c["title"])}</a>'
         links += '</details>'
     result = f'''<!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="C++ 개념을 각각 분리한 이론과 실행 예제 29개. 연산자, 조건문, 함수, 포인터, 클래스와 게임 설계."><title>{esc(title)} · C++ Learning Notes</title><link rel="stylesheet" href="{prefix}assets/style.css"><script defer src="{prefix}assets/app.js"></script></head>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="C++ 개념을 각각 분리한 이론과 실행 예제 29개. 연산자, 조건문, 함수, 포인터, 클래스와 게임 설계."><title>{esc(title)} · C++ Learning Notes</title><link rel="stylesheet" href="{prefix}assets/style.css?v={ASSET_VERSION}"><script defer src="{prefix}assets/app.js?v={ASSET_VERSION}"></script></head>
 <body><a class="skip" href="#main">본문으로 이동</a><aside class="sidebar" id="sidebar"><a class="brand" href="{prefix}index.html"><span class="brand-icon">C<span>++</span></span><span>Learning Notes<small>배운 것을, 내 것으로.</small></span></a><div class="search"><span aria-hidden="true">⌕</span><input id="chapter-search" type="search" placeholder="개념 검색: +=, 포인터, if" aria-label="개념 검색"></div><nav aria-label="학습 목차"><a class="overview" href="{prefix}index.html">↗ 학습 노트 홈</a><p class="nav-label">THEORY TOPICS <span>15</span></p><div class="chapter-list">{links}</div><p class="no-results" hidden>검색 결과가 없습니다.</p><a class="examples-link" href="{prefix}examples.html">&lt;/&gt; 실행 예제 모아보기 <span>29</span></a></nav><div class="sidebar-bottom"><span class="status-dot"></span> MSVC C++17 검증 완료<a href="https://github.com/YYH96/cpp-learning-notes" target="_blank" rel="noopener">GitHub ↗</a></div></aside><div class="page-shell"><header class="topbar"><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="학습 목차 열기">☰</button><span>C++ / <strong>{esc(title)}</strong></span><button id="theme-toggle" type="button" aria-label="화면 테마 변경">◐ <span>테마</span></button></header><main id="main">{content}</main><footer><span>C++ Learning Notes · 2026</span><a href="https://github.com/YYH96/cpp-learning-notes">원본 문서와 코드 ↗</a></footer></div>{toc}<div class="toast" role="status" aria-live="polite"></div></body></html>'''
-    return result.replace('THEORY TOPICS <span>15</span>', f'개념 {len(CONCEPTS)} · 복습 2').replace('</head>', f'<link rel="stylesheet" href="{prefix}assets/theory.css"></head>')
+    return result.replace('THEORY TOPICS <span>15</span>', f'개념 {len(CONCEPTS)} · 복습 2').replace('</head>', f'<link rel="stylesheet" href="{prefix}assets/theory.css?v={ASSET_VERSION}"></head>')
 
 cards = ''.join(f'<a class="chapter-card" href="chapters/{c["name"]}.html" data-search="{esc(c["title"]+" "+c["goal"])}"><div class="card-top"><span>CHAPTER {i+1:02}</span><b>↗</b></div><h3>{esc(c["title"])}</h3><p>{esc(c["goal"])}</p><div class="card-bottom">학습 페이지 읽기 <span>→</span></div></a>' for i,c in enumerate(meta))
 home = f'''<section class="hero"><div class="eyebrow"><span></span> MY C++ STUDY ARCHIVE</div><h1>한 줄의 코드부터,<br><em>하나의 게임까지.</em></h1><p class="hero-description">수업에서 배운 C++를 개념과 예제로 다시 연결합니다.<br>기초 문법부터 객체 지향, 자료구조, 게임 설계까지<br>차근차근 읽어 나가는 나만의 학습 노트.</p><a class="primary-button" href="chapters/{meta[0]['name']}.html">첫 챕터부터 시작하기 <span>→</span></a><div class="hero-code" aria-hidden="true"><div class="code-dots"><i></i><i></i><i></i><span>my_learning.cpp</span></div><pre><span class="muted">// 이해하고, 만들고, 다시 정리하기</span>

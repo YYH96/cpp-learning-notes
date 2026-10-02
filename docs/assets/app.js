@@ -73,3 +73,9 @@ document.querySelectorAll('.code-block pre code').forEach(code => {
   code.innerHTML = rendered + escapeHtml(text.slice(end));
 });
 search.addEventListener('input', () => { document.querySelectorAll('details.nav-group').forEach(group => { group.open = search.value.trim() ? !group.hidden : !!group.querySelector('.chapter-link.active'); }); });
+
+// Links from concept pages open the relevant long-form explanation directly.
+if (location.hash === '#lesson-details') {
+  const details = document.querySelector('details#lesson-details');
+  if (details) details.open = true;
+}

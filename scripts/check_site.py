@@ -55,3 +55,11 @@ for c in manifest:
     assert '<h1>'+c['title']+'</h1>' in text
     assert '<details class="lesson-details"' not in text
 print(f"Validated {len(manifest)} independent concept pages and separate operator/conditional groups.")
+
+for item in manifest:
+    text=(root/'concepts'/f"{item['name']}.html").read_text(encoding='utf-8')
+    for section in ['개념과 동작 원리','사용 시점과 다른 개념의 구분','예제를 이해하는 순서','이해 확인']:
+        assert section in text, (item['name'],section)
+    if 'class="code-block"' in text:
+        assert text.index('개념과 동작 원리') < text.index('class="code-block"')
+print('All 87 concepts explain principles, application, example interpretation and comprehension checks.')

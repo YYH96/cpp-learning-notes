@@ -24,7 +24,8 @@ for i,c in enumerate(NAV_META[:len(CONCEPTS)]):
     related_links = ''.join(f'<a href="{other["name"]}.html">{esc(other["title"])}</a>' for other in related)
     archive = next(ch for ch in meta if ch['name']==c['chapter'])
     dependencies = '<p class="snippet-guide">코드 조각은 같은 페이지의 선언과 함께 사용합니다. main 밖 표시는 전역 선언, 나머지는 main 안에서 실행합니다. 기능에 맞는 헤더가 필요합니다. <a href="../examples.html">완전한 실행 예제 29개</a></p>' if '```cpp' in body else ''
-    article = f'<div class="reading"><div class="reading-eyebrow">{esc(c["theory"]["group"])}</div><article><h1>{esc(c["title"])}</h1>{dependencies}<div class="extra-theory">{markdown(body)}</div><section id="related"><h2>관련 개념</h2><nav class="concept-navigation" aria-label="관련 개념">{related_links}</nav><p><a href="../chapters/{archive["name"]}.html#lesson-details">관련 응용 예제와 상세 해설</a></p></section></article><nav class="page-navigation">'
+    article_class = 'type-reference' if c['name'] == '02-io-types-01' else ''
+    article = f'<div class="reading"><div class="reading-eyebrow">{esc(c["theory"]["group"])}</div><article class="{article_class}"><h1>{esc(c["title"])}</h1>{dependencies}<div class="extra-theory">{markdown(body)}</div><section id="related"><h2>관련 개념</h2><nav class="concept-navigation" aria-label="관련 개념">{related_links}</nav><p><a href="../chapters/{archive["name"]}.html#lesson-details">관련 응용 예제와 상세 해설</a></p></section></article><nav class="page-navigation">'
     if i: article += f'<a href="{NAV_META[i-1]["name"]}.html"><small>이전 개념</small>{esc(NAV_META[i-1]["title"])}</a>'
     else: article += '<a href="../index.html">전체 개념</a>'
     if i+1 < len(CONCEPTS): article += f'<a href="{NAV_META[i+1]["name"]}.html"><small>다음 개념</small>{esc(NAV_META[i+1]["title"])}</a>'
